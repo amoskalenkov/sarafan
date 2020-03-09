@@ -1,122 +1,15 @@
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+import App from 'pages/App.vue'
 
-function getIndex(list, id) {
-    for (var i = 0; i < list.length; i++){
-        if(list[i].id === id){
-            return i;
-        }
-    }
+Vue.use(VueResource)
 
-    return -1;
-}
-var messageApi = Vue.resource('/message{/id}');
-
-Vue.component('message-form', {
-    props: ['messagesss', 'messageAttr'],
-    data: function(){
-        return {
-            text: '',
-            id: ''
-        }
-    },
-    watch: {
-        messageAttr: function (newVal, OldVal) {
-            this.text = newVal.text;
-            this.id = newVal.id;
-        }
-    },
-    template:
-        '<div>' +
-            '<input type="text" placeholder="Write something" v-model="text"/>' +
-            '<input type="button" value="Save" @click="save"/>' +
-        '</div>',
-    methods: {
-        save: function () {
-            var message = { text: this.text};
-
-            if(this.id){
-                messageApi.update({id: this.id}, message).then(result =>
-                    result.json().then(data => {
-                        var index = getIndex(this.messagesss, data.id);
-                        this.messagesss.splice(index, 1, data);
-                        this.text = ''
-                        this.id = ''
-                    })
-                )
-            } else {
-                messageApi.save({}, message).then(result =>
-                    result.json().then(data => {
-                        this.messagesss.push(data);
-                        this.text = ''
-                    })
-                )
-            }
-        }
-    }
-});
-
-Vue.component('message-row', {
-    props: ['messagee', 'editMethod', 'messages'],
-    template: '<div>' +
-        '<i>({{ messagee.id }})</i> {{ messagee.text }}' +
-        '<span style="position: absolute; right: 0">' +
-            '<input type="button" value="Edit" @click="edit" />' +
-            '<input type="button" value="X" @click="del" />' +
-        '</span>' +
-        '</div>',
-    methods: {
-        edit: function () {
-            this.editMethod(this.messagee);
-        },
-        del: function () {
-            messageApi.remove({id: this.messagee.id}).then(result => {
-                if(result.ok) {
-                    this.messages.splice(this.messages.indexOf(this.message), 1)
-                }
-            })
-        }
-    }
-});
-
-Vue.component('messages-list', {
-    props: ['messagess'],
-    data: function(){
-       return{
-           message: null
-       }
-    },
-    template:
-        '<div style="position: relative; width: 300px;">' +
-            '<message-form :messagesss="messagess" :messageAttr="message"/>' +
-            '<message-row v-for="message in messagess" :key="message.id" :messagee="message" ' +
-            ':editMethod="editMethod" :messages="messagess"/>' +
-        '</div>',
-
-    methods: {
-        editMethod: function (message) {
-            this.message = message;
-        }
-    }
-});
-
-var app = new Vue({
+new Vue({
     el: '#app',
-    template:
-        '<div>' +
-            '<div v-if="!profile">Необходимо авторизоваться через <a href="/login">Google</a></div>' +
-            '<div  v-else>' +
-            '<div>{{profile.name}}&nbsp;<a href="/logout">Выйти</a> </div>' +
-            '<messages-list :messagess="messages"/>' +
-            '</div>' +
-        '</div>',
-    data: {
-        messages: frontendDate.messages,
-        profile: frontendDate.profile
-    },
-    created: function () {
-        // messageApi.get().then(result = >
-        //     result.json().then(data = >
-        //         data.forEach(messagei = > this.messagess.push(messagei))
-        //     )
-        // )
-    },
-});
+    render: a => a(App)
+})
+/*
+
+
+
+*/
