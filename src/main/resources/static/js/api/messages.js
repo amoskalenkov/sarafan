@@ -3,7 +3,7 @@ import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
 
-const messages = Vue.resource('/message{/id}')
+const messages = Vue.resource('/message{/id}') //нужен для того чтобы обращаться к контроллеру
 
 export default {
     add: message => messages.save({}, message),
