@@ -1,11 +1,13 @@
 <template>
-    <v-layout class="mx-8" align-space-around justify-start column>
-        <message-form :messageAttr="message"/>
-        <message-row v-for="message in sortedMessages"
-                     :key="message.id"
-                     :messagee="message"
-                     :editMessage="editMessage"/>
-    </v-layout>
+    <v-container>
+        <v-layout class="mx-8" align-space-around justify-start column>
+            <message-form :messageAttr="message"/>
+            <message-row v-for="message in sortedMessages"
+                         :key="message.id"
+                         :messagee="message"
+                         :editMessage="editMessage"/>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
