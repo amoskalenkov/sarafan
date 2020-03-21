@@ -20,6 +20,7 @@ export default new Vuex.Store({
             ]
         },
         updateMessageMutation(state, message){
+            debugger;
             const updateIndex = state.messages.findIndex(item => item.id === message.id)
             state.messages = [
                 ...state.messages.splice(0, updateIndex),
