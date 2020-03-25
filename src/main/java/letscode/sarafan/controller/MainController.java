@@ -45,6 +45,8 @@ public class MainController {
 
             String messages = writer.writeValueAsString(messageRepo.findAll());
             model.addAttribute("messages", messages);
+        }else {
+            model.addAttribute("messages", "[]");
         }
 
         model.addAttribute("frontendDate", data);

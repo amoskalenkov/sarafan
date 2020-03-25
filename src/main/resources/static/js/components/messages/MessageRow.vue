@@ -1,8 +1,28 @@
 <template>
     <v-card class="my-2">
         <v-card-text primary-title>
-            <i>({{ messagee.id }})</i>
-            {{ messagee.text }}
+            <div>
+                <v-avatar
+                        v-if="messagee.author && messagee.author.userpic"
+                        size="36px"
+                >
+                    <img
+                            :src="messagee.author.userpic"
+                            :alt="messagee.author.name"
+                    >
+                </v-avatar>
+                <v-avatar
+                        v-else
+                        size="48px"
+                        color="indigo"
+                >
+                    <v-icon dark>mdi-account-circle</v-icon>
+                </v-avatar>
+                <span class="pl-3">{{ authorName }}</span>
+            </div>
+            <div class="pt-3">
+                <p class="font-weight-bold">{{ messagee.text }}</p>
+            </div>
         </v-card-text>
         <media v-if="messagee.link" :message="messagee"></media>
         <v-card-actions>
@@ -26,6 +46,11 @@
     export default {
         props: ['messagee', 'editMessage'],
         components: { CommentList, Media },
+        computed: {
+            authorName() {
+                return this.messagee.author ? this.messagee.author.name : "unknown"
+            }
+        },
         methods: {
             ...mapActions(['removeMessageAction']),
             edit() {

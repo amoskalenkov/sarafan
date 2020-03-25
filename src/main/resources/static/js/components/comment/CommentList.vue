@@ -26,7 +26,7 @@
     import CommentForm from './CommentForm.vue'
 
     export default {
-        name: "CommentList",
+        name: 'CommentList',
         components: {CommentItem, CommentForm},
         props: ['comments', 'messageId']
     }
