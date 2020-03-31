@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         messages,
+        profile,
         ...frontendDate
     },
     getters: {
@@ -21,7 +22,6 @@ export default new Vuex.Store({
             ]
         },
         updateMessageMutation(state, message){
-            debugger;
             const updateIndex = state.messages.findIndex(item => item.id === message.id)
             state.messages = [
                 ...state.messages.splice(0, updateIndex),
@@ -57,7 +57,7 @@ export default new Vuex.Store({
             }
         },
         addMessagePageMutation(state, messages){
-            const targetMessages = state.messages = state.messages
+            const targetMessages = state.messages
                 .concat(messages)
                 .reduce((res, val) => {
                     res[val.id] = val
