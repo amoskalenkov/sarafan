@@ -8,7 +8,7 @@ import { connect } from "./util/ws";
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
-if(frontendDate.profile){
+if(profile){
     connect()
 }
 
