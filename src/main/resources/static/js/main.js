@@ -7,6 +7,26 @@ import store from 'store/store'
 import { connect } from "./util/ws";
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import * as Sentry from '@sentry/browser'
+import * as Integrations from '@sentry/integrations'
+
+Sentry.init({
+    dsn: 'https://66a83049265b4d0b9547875cd7c39f3a@sentry.io/5189634',
+    integrations: [
+        new Integrations.Vue({
+            Vue,
+            attachProps: true
+        })
+    ],
+})
+
+Sentry.configureScope(scope =>
+    scope.setUser({
+        id: profile && profile.id,
+        username: profile && profile.name
+
+    })
+)
 
 if(profile){
     connect()
